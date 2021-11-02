@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//visited id 的大小都是Graph的節點數量 範圍從[0,Graph.V()]
+//visited id 的大小都是Graph的頂點數量G.V()
 
 //找連通分量
 template <typename Graph>
