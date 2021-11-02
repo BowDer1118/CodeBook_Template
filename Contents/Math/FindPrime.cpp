@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-/*
-    查找[0,2^15]中的所有質數 共有3515
-*/
+
+//查找[0,2^15]中的所有質數 共有3515
+
 const int MAXN = 32768;  //2^15=32768
 bool primes[MAXN];
 vector<int> p;  //3515
