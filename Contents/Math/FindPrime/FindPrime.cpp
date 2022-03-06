@@ -25,7 +25,7 @@ inline void findPrimes() {
             }
         }
     }
-    //蒐集所有質數
+    //搜集所有質數
     for (int i = 0; i < MAXN; i++) {
         if (primes[i]) {
             p.emplace_back(i);
