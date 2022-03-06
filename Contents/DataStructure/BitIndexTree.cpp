@@ -32,7 +32,7 @@ int rSum(int l, int r) {
 int main() {
     memset(bit, 0, sizeof(bit));
     vector<int> v = {0x3f3f3f, 1, 2, 3, 4, 5};
-    dataSize = v.size() - 1;              // v[0]不使用
+    dataSize = v.size() - 1;  // v[0]不使用
     for (int i = 1; i < v.size(); i++) {  //放入v[1,5]
         update(i, v[i]);
     }
