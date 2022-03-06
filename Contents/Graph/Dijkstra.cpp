@@ -2,7 +2,6 @@
 using namespace std;
 
 //節點從1號開始
-const int maxN = 100000 + 5;  // maxN個節點
 struct Edge {
     int v, wt;
     Edge(int a, int c) {
@@ -11,11 +10,6 @@ struct Edge {
     }
     Edge() {}
 };
-
-vector<Edge> g[maxN];
-vector<bool> visied(maxN);
-vector<int> dis(maxN);
-
 struct Info {
     int v;
     int wt;
@@ -27,10 +21,15 @@ struct Info {
     }
 };
 
+const int maxN = 100000 + 5;  // 最多maxN個節點
+int V, E;                     //有V個節點E條邊
+vector<Edge> g[maxN];
+vector<bool> visied(maxN);
+vector<int> dis(maxN);
 priority_queue<Info> pq;
 
 void init() {
-    for (int i = 0; i < maxN; i++) {
+    for (int i = 0; i < V; i++) {
         g[i].clear();
         visied[i] = false;
         dis[i] = 0x3f3f3f;
@@ -61,14 +60,12 @@ void dijkstra(int s) {
     }
 }
 
-int m, n, ta, tb, tc;
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    while (cin >> m >> n) {
+    int ta, tb, tc;
+    while (~scanf("%d %d", &V, &E)) {
         init();
-        while (n--) {
-            cin >> ta >> tb >> tc;
+        while (E--) {
+            scanf("%d %d %d", &ta, &tb, &tc);
             g[ta].push_back({tb, tc});
             g[tb].push_back({ta, tc});
         }
