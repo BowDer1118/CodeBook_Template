@@ -12,8 +12,8 @@ struct Edge {
     }
 };
 
-int V, E;                 //節點與邊數
 const int maxN = 100000;  //最多maxN個節點
+int V, E;                 //有V個節點E條邊
 vector<vector<Edge>> G(maxN);
 vector<int> distTo(maxN);  //到節點i的權重
 bool hasNegtiveCycle;
@@ -56,20 +56,21 @@ void bellmanFord(int s) {  //從s點開始
 }
 
 int main() {
-    scanf("%d %d", &V, &E);
-    init();
-    for (int i = 0; i < E; i++) {
-        scanf("%d %d %d", &e.f, &e.t, &e.wt);
-        G[e.f].push_back(e);
-    }
-    bellmanFord(0);  //從節點0開始
-    if (!hasNegtiveCycle) {
-        for (int i = 0; i < V; i++) {
-            printf("%d ", distTo[i]);
+    while (~scanf("%d %d", &V, &E)) {
+        init();
+        for (int i = 0; i < E; i++) {  //無向圖
+            scanf("%d %d %d", &e.f, &e.t, &e.wt);
+            G[e.f].push_back(e);
         }
-        printf("\n");
-    } else {
-        printf("Has Negtive Cycle.");
+        bellmanFord(0);  //從節點0開始
+        if (!hasNegtiveCycle) {
+            for (int i = 0; i < V; i++) {
+                printf("%d ", distTo[i]);
+            }
+            printf("\n");
+        } else {
+            printf("Has Negtive Cycle.");
+        }
     }
     return 0;
 }
