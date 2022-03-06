@@ -2,26 +2,26 @@
 using namespace std;
 
 // bit陣列索引從1開始
-const int maxN = 100000 + 5;  // bit容量
-const int dataSize = 5;       //資料大小 arr[0,5)--->bit[1,5]
+const int maxN = 100000 + 5;  // bit最大容量
 int bit[maxN];
+//放入的資料量
+int dataSize;
 
+//更新bit[x]的值(加d)
+void update(int x, int d) {
+    while (x <= dataSize) {
+        bit[x] += d;
+        x += x & (-x);
+    }
+}
+//前綴和[1,x]
 int query(int x) {
-    // query prefix sum in BIT
     int ret = 0;
     while (x) {
         ret += bit[x];
         x -= x & (-x);
     }
     return ret;
-}
-
-//更新bit[x]的值
-void update(int x, int d) {
-    while (x <= dataSize) {
-        bit[x] += d;
-        x += x & (-x);
-    }
 }
 
 // 區間和 [l,r]
@@ -31,10 +31,11 @@ int rSum(int l, int r) {
 
 int main() {
     memset(bit, 0, sizeof(bit));
-    int arr[dataSize] = {1, 2, 3, 4, 5};
-    for (int i = 0; i < dataSize; i++) {
-        update(i + 1, arr[i]);  // arr[i]放bit[i+1]的位置
+    vector<int> v = {0x3f3f3f, 1, 2, 3, 4, 5};
+    dataSize = v.size() - 1;              // v[0]不使用
+    for (int i = 1; i < v.size(); i++) {  //放入v[1,5]
+        update(i, v[i]);
     }
-    printf("%d\n", rSum(2, 4));  // arr[2,4]=2+3+4
+    printf("%d\n", rSum(2, 4));  // v[2,4]=2+3+4=9
     return 0;
 }
