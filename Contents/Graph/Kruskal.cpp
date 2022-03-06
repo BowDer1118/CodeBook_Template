@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-// Kruskal (MST) 節點從0號開始
+
+//節點從0號開始
 struct Edge {
     int v, w, wt;
     Edge(int a, int b, int c) {
@@ -13,7 +14,8 @@ struct Edge {
     }
 };
 
-const int maxN = 100000 + 5;  // maxN個節點
+const int maxN = 100000 + 5;  // 最多maxN個節點
+int V, E;                     //有V個節點E條鞭
 int parent[maxN];
 vector<Edge> edges;
 
@@ -34,28 +36,37 @@ void do_union(int p, int q) {
     }
 }
 
-int m, n, ta, tb, tc, weight;
+void init() {
+    edges.clear();
+    for (int i = 0; i < V; i++) {
+        parent[i] = -1;
+    }
+}
+
+int kruskal() {
+    sort(edges.begin(), edges.end());
+    int mstWeight = 0;
+    int pRoot, qRoot;
+    for (auto e : edges) {
+        pRoot = do_find(e.v);
+        qRoot = do_find(e.w);
+        if (pRoot != qRoot) {
+            mstWeight += e.wt;
+            do_union(pRoot, qRoot);
+        }
+    }
+    return mstWeight;
+}
 
 int main() {
-    while (~scanf("%d %d", &m, &n)) {
-        for (int i = 0; i < n; i++) {
+    int ta, tb, tc;
+    while (~scanf("%d %d", &V, &E)) {
+        init();
+        for (int i = 0; i < E; i++) {
             scanf("%d %d %d", &ta, &tb, &tc);
             edges.push_back({ta, tb, tc});
         }
-        sort(edges.begin(), edges.end());
-        for (int i = 0; i <= m; i++) {
-            parent[i] = -1;
-        }
-        weight = 0;
-        for (auto e : edges) {
-            ta = do_find(e.v);
-            tb = do_find(e.w);
-            if (ta != tb) {
-                weight += e.wt;
-                do_union(ta, tb);
-            }
-        }
-        printf("%d\n", weight);
+        printf("%d\n", kruskal());
     }
     return 0;
 }
